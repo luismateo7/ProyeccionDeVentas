@@ -1,182 +1,214 @@
+import { useEffect, useRef, useState } from 'react';
 import { createChart, ColorType } from 'lightweight-charts';
-import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 
+// Utils
+import transformedVentas from './utils/transformedVentas';
+import calcularIncremento from './utils/calcularIncremento';
+import calcularVentas from './utils/calcularVentas';
+
+// Components
+import LeyendaCrecimiento from './components/LeyendaCrecimiento';
+import LeyendaVentasYIncremento from './components/LeyendaVentasYIncremento';
+import LeyendaVentas from './components/LeyendaVentas';
+
 export default function App(props) {
+
+  const [porcentaje2019, setPorcentaje2019] = useState(-8);
+  const [porcentaje2021, setPorcentaje2021] = useState(16);
+  const [porcentaje2022, setPorcentaje2022] = useState(7);
+  const [porcentaje2023, setPorcentaje2023] = useState(10);
+
   const ventas2020 = [
     {
       mes: 'Enero',
-      televisor: 10,
-      refrigeradora: 5,
-      cocina: 3
+      televisor: 16,
+      refrigeradora: 17,
+      cocina: 20
     },
     {
       mes: 'Febrero',
-      televisor: 8,
-      refrigeradora: 6,
-      cocina: 4
+      televisor: 13,
+      refrigeradora: 19,
+      cocina: 14
     },
     {
       mes: 'Marzo',
-      televisor: 12,
-      refrigeradora: 7,
-      cocina: 5
+      televisor: 18,
+      refrigeradora: 11,
+      cocina: 16
     },
     {
       mes: 'Abril',
-      televisor: 11,
-      refrigeradora: 8,
-      cocina: 6
-    },
-    {
-      mes: 'Mayo',
-      televisor: 9,
-      refrigeradora: 9,
-      cocina: 7
-    },
-    {
-      mes: 'Junio',
-      televisor: 10,
-      refrigeradora: 10,
-      cocina: 8
-    },
-    {
-      mes: 'Julio',
-      televisor: 12,
-      refrigeradora: 11,
-      cocina: 9
-    },
-    {
-      mes: 'Agosto',
-      televisor: 11,
-      refrigeradora: 12,
-      cocina: 10
-    },
-    {
-      mes: 'Septiembre',
-      televisor: 10,
-      refrigeradora: 13,
+      televisor: 14,
+      refrigeradora: 18,
       cocina: 11
     },
     {
-      mes: 'Octubre',
-      televisor: 9,
-      refrigeradora: 14,
-      cocina: 12
+      mes: 'Mayo',
+      televisor: 19,
+      refrigeradora: 18,
+      cocina: 18
     },
     {
-      mes: 'Noviembre',
-      televisor: 8,
+      mes: 'Junio',
+      televisor: 15,
       refrigeradora: 15,
+      cocina: 10
+    },
+    {
+      mes: 'Julio',
+      televisor: 15,
+      refrigeradora: 12,
+      cocina: 17
+    },
+    {
+      mes: 'Agosto',
+      televisor: 20,
+      refrigeradora: 20,
       cocina: 13
     },
     {
-      mes: 'Diciembre',
-      televisor: 7,
-      refrigeradora: 16,
+      mes: 'Septiembre',
+      televisor: 15,
+      refrigeradora: 11,
+      cocina: 10
+    },
+    {
+      mes: 'Octubre',
+      televisor: 16,
+      refrigeradora: 20,
+      cocina: 11
+    },
+    {
+      mes: 'Noviembre',
+      televisor: 14,
+      refrigeradora: 18,
       cocina: 14
+    },
+    {
+      mes: 'Diciembre',
+      televisor: 12,
+      refrigeradora: 18,
+      cocina: 15
     }
   ]
 
-  const ventas2021 = ventas2020.map((mes) => {
-    return {
-      mes: mes.mes,
-      televisor: Math.ceil(mes.televisor * 1.16),
-      refrigeradora: Math.ceil(mes.refrigeradora * 1.16),
-      cocina: Math.ceil(mes.cocina * 1.16)
+  // Ventas
+  const ventas2019 = calcularVentas(ventas2020, porcentaje2019);
+  const ventas2021 = calcularVentas(ventas2020, porcentaje2021);
+  const ventas2022 = calcularVentas(ventas2021, porcentaje2022);
+  const ventas2023 = calcularVentas(ventas2022, porcentaje2023);
+
+  // Data de ventas formateada para el gráfico
+  const transformedVentas2019 = transformedVentas(ventas2019, 2019);
+  const transformedVentas2020 = transformedVentas(ventas2020, 2020);
+  const transformedVentas2021 = transformedVentas(ventas2021, 2021);
+  const transformedVentas2022 = transformedVentas(ventas2022, 2022);
+  const transformedVentas2023 = transformedVentas(ventas2023, 2023);
+
+  // Calcula los incrementos despues de un año de ventas respecto al año anterior
+  const incremento2020 = calcularIncremento(ventas2020, ventas2019);
+  const incremento2021 = calcularIncremento(ventas2021, ventas2020);
+  const incremento2022 = calcularIncremento(ventas2022, ventas2021);
+  const incremento2023 = calcularIncremento(ventas2023, ventas2022);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name == 'porcentaje2019') {
+      console.log(value);
+      setPorcentaje2019(value);
+    } else if (name == 'porcentaje2021') {
+      console.log(value);
+      setPorcentaje2021(value);
+    } else if (name == 'porcentaje2022') {
+      setPorcentaje2022(value);
+    } else if (name == 'porcentaje2023') {
+      setPorcentaje2023(value);
     }
-  })
-
-  console.log(ventas2021)
-
-  const ventas2022 = ventas2021.map((mes) => {
-    return {
-      mes: mes.mes,
-      televisor: Math.ceil(mes.televisor * 1.07),
-      refrigeradora: Math.ceil(mes.refrigeradora * 1.07),
-      cocina: Math.ceil(mes.cocina * 1.07)
-    }
-  })
-
-  const ventas2019 = ventas2020.map((mes) => {
-    return {
-      mes: mes.mes,
-      televisor: Math.ceil(mes.televisor * 0.95),
-      refrigeradora: Math.ceil(mes.refrigeradora * 0.95),
-      cocina: Math.ceil(mes.cocina * 0.95)
-    }
-  })
-
-  console.log(ventas2022);
-
-  const transformedVentas2020 = ventas2020.map((mes, index) => {
-    const totalVentas = mes.televisor + mes.refrigeradora + mes.cocina;
-    const month = (index + 1).toString().padStart(2, '0'); // Asegura que el mes tenga dos dígitos
-    return {
-      time: `${2020}-${month}-01`, // Asume el primer día del mes
-      value: totalVentas
-    };
-  });
-
-  console.log(transformedVentas2020);
-
-  const transformedVentas2021 = ventas2021.map((mes, index) => {
-    const totalVentas = mes.televisor + mes.refrigeradora + mes.cocina;
-    const month = (index + 1).toString().padStart(2, '0'); // Asegura que el mes tenga dos dígitos
-    return {
-      time: `${2021}-${month}-01`, // Asume el primer día del mes
-      value: totalVentas
-    };
-  });
-
-  const transformedVentas2022 = ventas2022.map((mes, index) => {
-    const totalVentas = mes.televisor + mes.refrigeradora + mes.cocina;
-    const month = (index + 1).toString().padStart(2, '0'); // Asegura que el mes tenga dos dígitos
-    return {
-      time: `${2022}-${month}-01`, // Asume el primer día del mes
-      value: totalVentas
-    };
-  });
-
-  const transformedVentas2019 = ventas2019.map((mes, index) => {
-    const totalVentas = mes.televisor + mes.refrigeradora + mes.cocina;
-    const month = (index + 1).toString().padStart(2, '0'); // Asegura que el mes tenga dos dígitos
-    return {
-      time: `${2019}-${month}-01`, // Asume el primer día del mes
-      value: totalVentas
-    };
-  })
-
-  // Necesito que compares el porcentaje de cantidad de televisores, cocians y refrigeradoras vendidas en cada mes frente el mes del año anterior, por ejemplo que me digas si en enero del 2020 se vendieron 10 cocians y en enero del 2020 se vendeiron 20 cocinas, entonces necesito que me digas que es 100% de incremento de ventas:
-
-  // Función para calcular el porcentaje de cambio
-  function getPercentageChange(oldNumber, newNumber) {
-    var changeValue = newNumber - oldNumber;
-    return (changeValue / oldNumber) * 100;
   }
-
-  // Iterar sobre los datos para calcular el porcentaje de cambio
-  ventas2021.forEach((venta, index) => {
-    const ventaAnterior = ventas2020[index];
-    const incrementoTelevisores = getPercentageChange(ventaAnterior.televisor, venta.televisor);
-    const incrementoCocinas = getPercentageChange(ventaAnterior.cocina, venta.cocina);
-    const incrementoRefrigeradoras = getPercentageChange(ventaAnterior.refrigeradora, venta.refrigeradora);
-
-    console.log(`En ${venta.mes}, hubo un incremento de ${incrementoTelevisores.toFixed(2)}% en televisores, ${incrementoCocinas.toFixed(2)}% en cocinas y ${incrementoRefrigeradoras.toFixed(2)}% en refrigeradoras en comparación con el mismo mes del año anterior.`);
-  });
-
 
   return (
     <>
       <h1>Taller de Inteligencia de Negocios</h1>
-      <ChartComponent {
-        ...props}
-        data={transformedVentas2020}
-        data2={transformedVentas2021}
-        data3={transformedVentas2022}
-        data4={transformedVentas2019}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
+        <label>
+          Porcentaje de crecimiento/decremento en 2019 frente al 2020:
+          <input
+            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
+            type="number"
+            name="porcentaje2019"
+            value={porcentaje2019}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Porcentaje de crecimiento en 2021:
+          <input
+            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
+            type="number"
+            name="porcentaje2021"
+            value={porcentaje2021}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Porcentaje de crecimiento en 2022:
+          <input
+            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
+            type="number"
+            name="porcentaje2022"
+            value={porcentaje2022}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Porcentaje de crecimiento en 2023:
+          <input
+            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
+            type="number"
+            name="porcentaje2023"
+            value={porcentaje2023}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
 
-      ></ChartComponent>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+        <ChartComponent {
+          ...props}
+          data={transformedVentas2020}
+          data2={transformedVentas2021}
+          data3={transformedVentas2022}
+          data4={transformedVentas2019}
+          data5={transformedVentas2023}
+        ></ChartComponent>
+      </div>
+
+      <div style={{ display: 'flex' }}>
+        <LeyendaCrecimiento incremento={incremento2020} year={2020} />
+        <LeyendaCrecimiento incremento={incremento2021} year={2021} />
+        <LeyendaCrecimiento incremento={incremento2022} year={2022} />
+        <LeyendaCrecimiento incremento={incremento2023} year={2023} />
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <LeyendaVentas ventas={ventas2019} year={2019} />
+        <LeyendaVentas ventas={ventas2020} year={2020} />
+        <LeyendaVentas ventas={ventas2021} year={2021} />
+        <LeyendaVentas ventas={ventas2022} year={2022} />
+        <LeyendaVentas ventas={ventas2023} year={2023} />
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <LeyendaVentasYIncremento ventas={ventas2020} incremento={incremento2020} year={2020} ventasAnterior={ventas2019} />
+        <LeyendaVentasYIncremento ventas={ventas2021} incremento={incremento2021} year={2021} ventasAnterior={ventas2020} />
+        <LeyendaVentasYIncremento ventas={ventas2022} incremento={incremento2022} year={2022} ventasAnterior={ventas2021} />
+        <LeyendaVentasYIncremento ventas={ventas2023} incremento={incremento2023} year={2023} ventasAnterior={ventas2022} />
+      </div>
     </>
   )
 }
@@ -187,6 +219,7 @@ export const ChartComponent = props => {
     data2,
     data3,
     data4,
+    data5,
     colors: {
       backgroundColor = 'white',
       lineColor = '#2962FF',
@@ -225,6 +258,9 @@ export const ChartComponent = props => {
 
       const newSeries3 = chart.addAreaSeries({ lineColor: 'green', topColor: 'green', bottomColor: 'rgba(0, 255, 0, 0.28)' });
       newSeries3.setData(data3);
+
+      const newSeries5 = chart.addAreaSeries({ lineColor: 'purple', topColor: 'purple', bottomColor: 'rgba(128, 0, 128, 0.28)' });
+      newSeries5.setData(data5);
 
       window.addEventListener('resize', handleResize);
 
