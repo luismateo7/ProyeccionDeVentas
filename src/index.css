@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -15,7 +15,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 a {
   font-weight: 500;
@@ -57,7 +57,7 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
+/* 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -69,4 +69,17 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+
+.titulo {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-top: 2rem;
+}
+
+.infoCard {
+  background: #e8e8e8; 
+  border-radius: 10px;
+  margin: 0.7rem 0.5rem;
+  padding: 0.3rem;
 }

@@ -1,10 +1,10 @@
 export default function LeyendaCrecimiento({ incremento, year }) {
     return (
         <div>
-            <h3>Incremento de ventas en {year}</h3>
-            <ul>
+            <h3 className="titulo">Incremento de ventas en {year}</h3>
+            <div>
                 {Object.entries(incremento).map(([mes, datos]) => (
-                    <p key={mes}>
+                    <p key={mes} className="infoCard">
                         <span style={{ fontWeight: 'bold' }}>{mes + ": "}</span>
                         {`Televisores: `}
                         <span style={{ fontWeight: 'bold', color: datos.televisor > 1 ? 'green' : 'red' }}>
@@ -20,7 +20,7 @@ export default function LeyendaCrecimiento({ incremento, year }) {
                         </span>
                     </p>
                 ))}
-            </ul>
+            </div>
         </div>
     )
 }

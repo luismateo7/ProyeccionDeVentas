@@ -1,10 +1,10 @@
 export default function LeyendaVentasYIncremento({ ventas, incremento, year, ventasAnterior }) {
     return (
         <div>
-            <h3>Incremento y ventas en {year}</h3>
+            <h3 className="titulo">Incremento y ventas en {year}</h3>
             <ul>
                 {ventas.map((mes, index) => (
-                    <p key={mes.mes}>
+                    <div key={mes.mes} className="infoCard">
                         <span style={{ fontWeight: 'bold' }}>{`${mes.mes} del ${year}: `}</span>
                         {`Televisores: `}
                         <span style={{ fontWeight: 'bold', color: incremento[mes.mes].televisor > 1 ? 'green' : 'red' }}>
@@ -24,7 +24,7 @@ export default function LeyendaVentasYIncremento({ ventas, incremento, year, ven
                                 {`Televisores: ${ventasAnterior[index].televisor}, Refrigeradoras: ${ventasAnterior[index].refrigeradora}, Cocinas: ${ventasAnterior[index].cocina}`}
                             </span>
                         )}
-                    </p>
+                    </div>
                 ))}
             </ul>
         </div>

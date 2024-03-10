@@ -14,7 +14,7 @@ import LeyendaVentas from './components/LeyendaVentas';
 
 export default function App(props) {
 
-  const [porcentaje2019, setPorcentaje2019] = useState(-8);
+  // const [porcentaje2019, setPorcentaje2019] = useState(-8);
   const [porcentaje2021, setPorcentaje2021] = useState(16);
   const [porcentaje2022, setPorcentaje2022] = useState(7);
   const [porcentaje2023, setPorcentaje2023] = useState(10);
@@ -95,20 +95,20 @@ export default function App(props) {
   ]
 
   // Ventas
-  const ventas2019 = calcularVentas(ventas2020, porcentaje2019);
+  // const ventas2019 = calcularVentas(ventas2020, porcentaje2019);
   const ventas2021 = calcularVentas(ventas2020, porcentaje2021);
   const ventas2022 = calcularVentas(ventas2021, porcentaje2022);
   const ventas2023 = calcularVentas(ventas2022, porcentaje2023);
 
   // Data de ventas formateada para el gráfico
-  const transformedVentas2019 = transformedVentas(ventas2019, 2019);
+  // const transformedVentas2019 = transformedVentas(ventas2019, 2019);
   const transformedVentas2020 = transformedVentas(ventas2020, 2020);
   const transformedVentas2021 = transformedVentas(ventas2021, 2021);
   const transformedVentas2022 = transformedVentas(ventas2022, 2022);
   const transformedVentas2023 = transformedVentas(ventas2023, 2023);
 
   // Calcula los incrementos despues de un año de ventas respecto al año anterior
-  const incremento2020 = calcularIncremento(ventas2020, ventas2019);
+  // const incremento2020 = calcularIncremento(ventas2020, ventas2019);
   const incremento2021 = calcularIncremento(ventas2021, ventas2020);
   const incremento2022 = calcularIncremento(ventas2022, ventas2021);
   const incremento2023 = calcularIncremento(ventas2023, ventas2022);
@@ -132,7 +132,7 @@ export default function App(props) {
     <>
       <h1>Taller de Inteligencia de Negocios</h1>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
-        <label>
+        {/* <label>
           Porcentaje de crecimiento/decremento en 2019 frente al 2020:
           <input
             style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
@@ -142,11 +142,11 @@ export default function App(props) {
             onChange={handleChange}
           />
         </label>
-        <br />
+        <br /> */}
         <label>
           Porcentaje de crecimiento en 2021:
           <input
-            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
+            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem", border: "1px solid #D2D2D2"}}
             type="number"
             name="porcentaje2021"
             value={porcentaje2021}
@@ -157,7 +157,7 @@ export default function App(props) {
         <label>
           Porcentaje de crecimiento en 2022:
           <input
-            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
+            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem", border: "1px solid #D2D2D2" }}
             type="number"
             name="porcentaje2022"
             value={porcentaje2022}
@@ -168,7 +168,7 @@ export default function App(props) {
         <label>
           Porcentaje de crecimiento en 2023:
           <input
-            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem" }}
+            style={{ width: "4rem", borderRadius: "3px", marginLeft: "1rem", padding: "0.5rem", border: "1px solid #D2D2D2" }}
             type="number"
             name="porcentaje2023"
             value={porcentaje2023}
@@ -183,20 +183,20 @@ export default function App(props) {
           data={transformedVentas2020}
           data2={transformedVentas2021}
           data3={transformedVentas2022}
-          data4={transformedVentas2019}
+          // data4={transformedVentas2019}
           data5={transformedVentas2023}
         ></ChartComponent>
       </div>
 
       <div style={{ display: 'flex' }}>
-        <LeyendaCrecimiento incremento={incremento2020} year={2020} />
+        {/* <LeyendaCrecimiento incremento={incremento2020} year={2020} /> */}
         <LeyendaCrecimiento incremento={incremento2021} year={2021} />
         <LeyendaCrecimiento incremento={incremento2022} year={2022} />
         <LeyendaCrecimiento incremento={incremento2023} year={2023} />
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <LeyendaVentas ventas={ventas2019} year={2019} />
+        {/* <LeyendaVentas ventas={ventas2019} year={2019} /> */}
         <LeyendaVentas ventas={ventas2020} year={2020} />
         <LeyendaVentas ventas={ventas2021} year={2021} />
         <LeyendaVentas ventas={ventas2022} year={2022} />
@@ -204,7 +204,7 @@ export default function App(props) {
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <LeyendaVentasYIncremento ventas={ventas2020} incremento={incremento2020} year={2020} ventasAnterior={ventas2019} />
+        {/* <LeyendaVentasYIncremento ventas={ventas2020} incremento={incremento2020} year={2020} ventasAnterior={ventas2019} /> */}
         <LeyendaVentasYIncremento ventas={ventas2021} incremento={incremento2021} year={2021} ventasAnterior={ventas2020} />
         <LeyendaVentasYIncremento ventas={ventas2022} incremento={incremento2022} year={2022} ventasAnterior={ventas2021} />
         <LeyendaVentasYIncremento ventas={ventas2023} incremento={incremento2023} year={2023} ventasAnterior={ventas2022} />
@@ -218,7 +218,7 @@ export const ChartComponent = props => {
     data,
     data2,
     data3,
-    data4,
+    // data4,
     data5,
     colors: {
       backgroundColor = 'white',
@@ -247,8 +247,8 @@ export const ChartComponent = props => {
       });
       chart.timeScale().fitContent();
 
-      const newSeries4 = chart.addAreaSeries({ lineColor: 'yellow', topColor: 'yellow', bottomColor: 'rgba(255, 255, 0, 0.28)' });
-      newSeries4.setData(data4);
+      // const newSeries4 = chart.addAreaSeries({ lineColor: 'yellow', topColor: 'yellow', bottomColor: 'rgba(255, 255, 0, 0.28)' });
+      // newSeries4.setData(data4);
 
       const newSeries = chart.addAreaSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
       newSeries.setData(data);
